@@ -1,5 +1,5 @@
 <?php
-namespace FORMXTRACF7\Inc\Addons;
+namespace FORMXTRACF7\Inc\Addons\Redirect;
 
 // No, Direct access Sir !!!
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,7 +36,7 @@ class Redirect {
      */
     public function formxtra_cf7_redirect_add_panel( $panels ){
 		$panels['formxtra-cf7-redirect-panel'] = array(
-			'title'    => __( 'FXCF7 Redirection', 'formxtra-cf7' ),
+			'title'    => __( 'FXCF7 Redirect', 'formxtra-cf7' ),
 			'callback' => array( $this, 'formxtra_cf7_create_redirect_panel_fields' ),
 		);
 		return $panels;
@@ -45,9 +45,9 @@ class Redirect {
     /*
     * Redirect Fields Function
     */
-    public function formxtra_cf7_create_redirect_panel_fields( $post ){
-        return 'Panel Fields Content';
-    }
+    public function formxtra_cf7_create_redirect_panel_fields( $post ){?>
+            <h2><?php echo esc_html__( 'FXCF7 Redirection Settings', 'formxtra-cf7' ); ?></h2>
+    <?php }
 
 
     /**
@@ -65,12 +65,12 @@ class Redirect {
     /**
      * Returns the singleton instance of the class.
      */
-    public static function get_instance() {
-        if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Redirect ) ) {
-            self::$instance = new Redirect();
-            // self::$instance->redirect_init();
-        }
+    // public static function get_instance() {
+    //     if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Redirect ) ) {
+    //         self::$instance = new Redirect();
+    //         // self::$instance->redirect_init();
+    //     }
 
-        return self::$instance;
-    }
+    //     return self::$instance;
+    // }
 }

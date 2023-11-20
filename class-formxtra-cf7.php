@@ -9,7 +9,7 @@ use FORMXTRACF7\Inc\Classes\Notifications\Notifications;
 use FORMXTRACF7\Inc\Classes\Pro_Upgrade;
 use FORMXTRACF7\Inc\Classes\Upgrade_Plugin;
 use FORMXTRACF7\Inc\Classes\Feedback;
-use FORMXTRACF7\Inc\Classes\Addons;
+use FORMXTRACF7\Inc\Addons\Addons;
 
 /**
  * Main Class

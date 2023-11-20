@@ -1,7 +1,7 @@
 <?php
 namespace FORMXTRACF7\Inc\Addons;
 
-use FORMXTRACF7\Inc\Addons\Redirect;
+use FORMXTRACF7\Inc\Addons\Redirect\Redirect;
 
 // No, Direct access Sir !!!
 if ( ! defined( 'ABSPATH' ) ) {

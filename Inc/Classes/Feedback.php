@@ -48,7 +48,7 @@ class Feedback {
 
     public function admin_suvery_scripts($handle){
         if('plugins.php' === $handle){
-            wp_enqueue_style( 'formxtra_cf7-survey' , FORMXTRACF7_ASSETS . 'css/plugin-survey.css' );
+            wp_enqueue_style( 'formxtra_cf7-survey' , FORMXTRACF7_ASSETS . 'css/formxtra-cf7-survey.css' );
         }
     }
 
