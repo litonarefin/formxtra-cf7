@@ -9,6 +9,7 @@ use FORMXTRACF7\Inc\Classes\Notifications\Notifications;
 use FORMXTRACF7\Inc\Classes\Pro_Upgrade;
 use FORMXTRACF7\Inc\Classes\Upgrade_Plugin;
 use FORMXTRACF7\Inc\Classes\Feedback;
+use FORMXTRACF7\Inc\Classes\Addons;
 
 /**
  * Main Class
@@ -141,6 +142,7 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 			new Notifications();
 			new Featured();
 			new Feedback();
+			new Addons();
 		}
 
 
@@ -166,10 +168,10 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 			load_textdomain( $domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo' );
 			load_plugin_textdomain( $domain, false, dirname( FORMXTRACF7_BASE ) . '/languages/' );
 		}
-		
+
 		/**
 		* Deactivate Pro Plugin if it's not already active
-		* 
+		*
 		* @author Jewel Theme <support@jeweltheme.com>
 		*/
 		public static function formxtra_cf7_activation_hook() {
@@ -182,7 +184,7 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 				deactivate_plugins( $plugin );
 			}
 		}
-		
+
 
 		/**
 		 * Returns the singleton instance of the class.
