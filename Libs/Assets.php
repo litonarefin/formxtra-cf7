@@ -47,7 +47,7 @@ if ( ! class_exists( 'Assets' ) ) {
 			wp_enqueue_style( 'formxtra-cf7-frontend', FORMXTRACF7_ASSETS . 'css/formxtra-cf7-frontend.css', FORMXTRACF7_VER, 'all' );
 
 			// JS Files .
-			wp_enqueue_script( 'formxtra-cf7-frontend', FORMXTRACF7_ASSETS . 'js/formxtra-cf-7-frontend.js', array( 'jquery' ), FORMXTRACF7_VER, true );
+			wp_enqueue_script( 'formxtra-cf7-frontend', FORMXTRACF7_ASSETS . 'js/formxtra-cf7-frontend.js', array( 'jquery' ), FORMXTRACF7_VER, true );
 		}
 
 
@@ -58,10 +58,10 @@ if ( ! class_exists( 'Assets' ) ) {
 		 */
 		public function formxtra_cf7_admin_enqueue_scripts() {
 			// CSS Files .
-			wp_enqueue_style( 'formxtra-cf7-admin', FORMXTRACF7_ASSETS . 'css/formxtra-cf-7-admin.css', array( 'dashicons' ), FORMXTRACF7_VER, 'all' );
+			wp_enqueue_style( 'formxtra-cf7-admin', FORMXTRACF7_ASSETS . 'css/formxtra-cf7-admin.css', array( 'dashicons' ), FORMXTRACF7_VER, 'all' );
 
 			// JS Files .
-			wp_enqueue_script( 'formxtra-cf7-admin', FORMXTRACF7_ASSETS . 'js/formxtra-cf-7-admin.js', array( 'jquery' ), FORMXTRACF7_VER, true );
+			wp_enqueue_script( 'formxtra-cf7-admin', FORMXTRACF7_ASSETS . 'js/formxtra-cf7-admin.js', array( 'jquery' ), FORMXTRACF7_VER, true );
 			wp_localize_script(
 				'formxtra-cf7-admin',
 				'FORMXTRACF7CORE',

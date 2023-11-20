@@ -1,7 +1,7 @@
 ===  ===
 Contributors: litonice13, pixarlabs, jwthemeltd
 Donate link: https://www.buymeacoffee.com/jeweltheme
-Tags: 
+Tags:
 Requires at least: 4.0
 Tested up to: 6.3
 Stable tag: 1.0.0
@@ -20,11 +20,11 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 
 ### Liked Formxtra CF7 Plugins?
-Rate us on [WordPress Forum](https://wordpress.org/support/plugin/formxtra-cf-7/reviews/#new-post) 🙂
+Rate us on [WordPress Forum](https://wordpress.org/support/plugin/formxtra-cf7/reviews/#new-post) 🙂
 
 
 == Source Code ==
-[Source Code](https://github.com/litonarefin/formxtra-cf-7)
+[Source Code](https://github.com/litonarefin/formxtra-cf7)
 
 == Support ==
 [Support Forum](https://jeweltheme.com/contact/)
@@ -57,4 +57,3 @@ If you like our Formxtra CF7 plugin then why not check some other plugins that d
 
 
 == Upgrade Notice ==
-

@@ -158,7 +158,7 @@ class Feedback {
         <script>
             var deactivate_url = '#';
 
-            jQuery(document).on('click', '#deactivate-formxtra-cf-7', function(e) {
+            jQuery(document).on('click', '#deactivate-formxtra-cf7', function(e) {
                 e.preventDefault();
                 deactivate_url = e.target.href;
                 jQuery('#formxtra-cf7-deactivate-survey-overlay').addClass('formxtra-cf7-deactivate-survey-is-visible');

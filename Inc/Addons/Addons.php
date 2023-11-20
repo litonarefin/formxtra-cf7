@@ -23,6 +23,6 @@ class Addons {
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
     public function __construct(){
-		new Redirect();
+		Redirect::get_instance();
     }
 }
