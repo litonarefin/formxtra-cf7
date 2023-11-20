@@ -1,0 +1,146 @@
+.formxtra-cf7-license-popup,
+.formxtra-cf7-license-popup * {
+    box-sizing: border-box;
+}
+
+.formxtra-cf7-license-popup .formxtra-cf7-license-popup--wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999999;
+    background: rgba(27, 28, 29, 0.6156862745);
+    display: none;
+}
+
+.formxtra-cf7-license-popup .formxtra-cf7-license-popup--container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.formxtra-cf7-license-popup .formxtra-cf7-license-popup--container-inner {
+    background: #fff;
+    width: 500px;
+    max-width: 100%;
+    padding: 30px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0px 0px 76px rgba(41, 42, 48, 0.25);
+}
+
+.formxtra-cf7-license-popup .wc-licelse--close {
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    right: -26px;
+    top: -26px;
+    border: none !important;
+    background: #fff !important;
+    box-shadow: -4px 4px 40px rgba(35, 36, 40, 0.4) !important;
+    padding: 0 !important;
+    outline: none !important;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.formxtra-cf7-license-popup .wc-licelse--close svg {
+    width: 24px;
+    height: 24px;
+}
+
+.formxtra-cf7-license-actions button:not(.wc-btn-active) {
+    display: none;
+}
+
+.formxtra-cf7-license-popup.formxtra-cf7-license-status--active .formxtra-cf7-license-status td {
+    color: #16b95c;
+}
+
+.formxtra-cf7-license-popup--notice {
+    padding: 14px 14px;
+    border-left: 3px solid;
+    margin-top: 0px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    display: none;
+}
+
+.formxtra-cf7-license-popup--notice.formxtra-cf7-license--notice-success {
+    background: #e8f1ec;
+    border-color: #16b95c;
+    color: #16b95c;
+}
+
+.formxtra-cf7-license-popup--notice.formxtra-cf7-license--notice-error {
+    background: #f1e8e8;
+    border-color: #e35555;
+    color: #d72f2f;
+}
+
+.formxtra-cf7-license--loader-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: inherit;
+    backdrop-filter: blur(4px);
+    visibility: hidden;
+    opacity: 0;
+    transition: all .2s ease;
+}
+
+.formxtra-cf7-license--loader-wrapper.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.formxtra-cf7-license--loader {
+    width: 40px;
+    height: 40px;
+}
+
+.formxtra-cf7-license--loader:after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 5px solid #1e75e1;
+    border-color: #1e75e1 transparent #1e75e1 transparent;
+    animation: formxtra-cf7-license--loader 1.2s linear infinite;
+}
+
+@keyframes formxtra-cf7-license--loader {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.formxtra-cf7-license-settings-page .formxtra-cf7-license-popup--wrapper {
+    position: relative;
+    display: block;
+    background: none;
+    z-index: unset;
+}
+
+.formxtra-cf7-license-settings-page .formxtra-cf7-license-popup--container {
+    display: block;
+}
+
+.formxtra-cf7-license-settings-page .formxtra-cf7-license-popup--container-inner {
+    background: none;
+    box-shadow: none;
+    border-radius: none;
+}
