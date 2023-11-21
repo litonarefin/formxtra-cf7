@@ -57,6 +57,12 @@ if ( ! class_exists( 'Assets' ) ) {
 		 * @method admin_enqueue_scripts()
 		 */
 		public function formxtra_cf7_admin_enqueue_scripts() {
+			$screen = get_current_screen();
+
+			if( !empty($screen->id) && $screen->id == 'toplevel_page_wpcf7'){
+				return;
+			}
+
 			// CSS Files .
 			wp_enqueue_style( 'formxtra-cf7-admin', FORMXTRACF7_ASSETS . 'css/formxtra-cf7-admin.css', array( 'dashicons' ), FORMXTRACF7_VER, 'all' );
 
