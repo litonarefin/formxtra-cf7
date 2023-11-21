@@ -41,8 +41,10 @@ if (process.env.NODE_ENV.trim() === 'production') {
 }
 
 // SCSS to CSS
-mix.sass("dev/scss/style.scss", "assets/css/formxtra-cf7.min.css");
+mix.sass("dev/scss/sdk.scss", "assets/css/formxtra-cf7-sdk.min.css");
+mix.sass("dev/scss/admin.scss", "assets/css/formxtra-cf7-admin.min.css");
 mix.sass("dev/scss/survey.scss", "assets/css/formxtra-cf7-survey.css");
+
 // mix.sass("dev/scss/premium/formxtra-cf7-pro-styles.scss", "Pro/assets/css/formxtra-cf7-pro.min.css");
 
 // Scripts to js - regular

@@ -1,0 +1,22 @@
+[id*=formxtra-cf7-] {
+  border: 2px solid #473080 !important;
+  background: #fff !important;
+}
+[id*=formxtra-cf7-]:hover {
+  border: 2px solid #473080 !important;
+  background: #fff !important;
+}
+[id*=formxtra-cf7-]:hover a {
+  color: #fff !important;
+}
+[id*=formxtra-cf7-].ui-tabs-active {
+  border: 2px solid #473080 !important;
+  background: #fff !important;
+}
+[id*=formxtra-cf7-] h2 {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+}
+
+/*# sourceMappingURL=formxtra-cf7-admin.min.css.map*/

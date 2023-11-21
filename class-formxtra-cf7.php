@@ -1,4 +1,5 @@
 <?php
+
 namespace FORMXTRACF7;
 
 use FORMXTRACF7\Libs\Assets;
@@ -20,19 +21,20 @@ use FORMXTRACF7\Inc\Addons\Addons;
  */
 
 // No, Direct access Sir !!!
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
 /**
  * Formxtra_CF7 Class
  */
-if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
+if (!class_exists('\FORMXTRACF7\Formxtra_CF7')) {
 
 	/**
 	 * Class: Formxtra_CF7
 	 */
-	final class Formxtra_CF7 {
+	final class Formxtra_CF7
+	{
 
 		const VERSION            = FORMXTRACF7_VER;
 		private static $instance = null;
@@ -42,11 +44,11 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 		 *
 		 * @author Jewel Theme <support@jeweltheme.com>
 		 */
-		public function __construct() {
-			$this->includes();
-			add_action( 'plugins_loaded', array( $this, 'formxtra_cf7_plugins_loaded' ), 999 );
+		public function __construct()
+		{
+			add_action('plugins_loaded', array($this, 'formxtra_cf7_plugins_loaded'), 999);
 			// Body Class.
-			add_filter( 'admin_body_class', array( $this, 'formxtra_cf7_body_class' ) );
+			add_filter('admin_body_class', array($this, 'formxtra_cf7_body_class'));
 			// This should run earlier .
 			// add_action( 'plugins_loaded', [ $this, 'formxtra_cf7_maybe_run_upgrades' ], -100 ); .
 		}
@@ -56,8 +58,10 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 		 *
 		 * @author Jewel Theme <support@jeweltheme.com>
 		 */
-		public function formxtra_cf7_plugins_loaded() {
+		public function formxtra_cf7_plugins_loaded()
+		{
 			$this->formxtra_cf7_activate();
+			$this->includes();
 		}
 
 		/**
@@ -65,7 +69,8 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 		 *
 		 * @author Jewel Theme <support@jeweltheme.com>
 		 */
-		public static function plugin_version_key() {
+		public static function plugin_version_key()
+		{
 			return Helper::formxtra_cf7_slug_cleanup() . '_version';
 		}
 
@@ -74,27 +79,28 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 		 *
 		 * @author Jewel Theme <support@jeweltheme.com>
 		 */
-		public static function formxtra_cf7_activate() {
-			$current_formxtra_cf7_version = get_option( self::plugin_version_key(), null );
+		public static function formxtra_cf7_activate()
+		{
+			$current_formxtra_cf7_version = get_option(self::plugin_version_key(), null);
 
-			if ( get_option( 'formxtra_cf7_activation_time' ) === false ) {
-				update_option( 'formxtra_cf7_activation_time', strtotime( 'now' ) );
+			if (get_option('formxtra_cf7_activation_time') === false) {
+				update_option('formxtra_cf7_activation_time', strtotime('now'));
 			}
 
-			if ( is_null( $current_formxtra_cf7_version ) ) {
-				update_option( self::plugin_version_key(), self::VERSION );
+			if (is_null($current_formxtra_cf7_version)) {
+				update_option(self::plugin_version_key(), self::VERSION);
 			}
 
-			$allowed = get_option( Helper::formxtra_cf7_slug_cleanup() . '_allow_tracking', 'no' );
+			$allowed = get_option(Helper::formxtra_cf7_slug_cleanup() . '_allow_tracking', 'no');
 
 			// if it wasn't allowed before, do nothing .
-			if ( 'yes' !== $allowed ) {
+			if ('yes' !== $allowed) {
 				return;
 			}
 			// re-schedule and delete the last sent time so we could force send again .
 			$hook_name = Helper::formxtra_cf7_slug_cleanup() . '_tracker_send_event';
-			if ( ! wp_next_scheduled( $hook_name ) ) {
-				wp_schedule_event( time(), 'weekly', $hook_name );
+			if (!wp_next_scheduled($hook_name)) {
+				wp_schedule_event(time(), 'weekly', $hook_name);
 			}
 		}
 
@@ -106,7 +112,8 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 		 *
 		 * @author Jewel Theme <support@jeweltheme.com>
 		 */
-		public function formxtra_cf7_body_class( $classes ) {
+		public function formxtra_cf7_body_class($classes)
+		{
 			$classes .= ' formxtra-cf7 ';
 			return $classes;
 		}
@@ -116,8 +123,9 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 		 *
 		 * @return void
 		 */
-		public function formxtra_cf7_maybe_run_upgrades() {
-			if ( ! is_admin() && ! current_user_can( 'manage_options' ) ) {
+		public function formxtra_cf7_maybe_run_upgrades()
+		{
+			if (!is_admin() && !current_user_can('manage_options')) {
 				return;
 			}
 
@@ -125,7 +133,7 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 			$upgrade = new Upgrade_Plugin();
 
 			// Need to work on Upgrade Class .
-			if ( $upgrade->if_updates_available() ) {
+			if ($upgrade->if_updates_available()) {
 				$upgrade->run_updates();
 			}
 		}
@@ -135,7 +143,8 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 		 *
 		 * @author Jewel Theme <support@jeweltheme.com>
 		 */
-		public function includes() {
+		public function includes()
+		{
 			new Assets();
 			new Recommended_Plugins();
 			new Pro_Upgrade();
@@ -151,7 +160,8 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 		 *
 		 * @author Jewel Theme <support@jeweltheme.com>
 		 */
-		public function formxtra_cf7_init() {
+		public function formxtra_cf7_init()
+		{
 			$this->formxtra_cf7_load_textdomain();
 		}
 
@@ -161,27 +171,29 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 		 *
 		 * @author Jewel Theme <support@jeweltheme.com>
 		 */
-		public function formxtra_cf7_load_textdomain() {
+		public function formxtra_cf7_load_textdomain()
+		{
 			$domain = 'formxtra-cf7';
-			$locale = apply_filters( 'formxtra_cf7_plugin_locale', get_locale(), $domain );
+			$locale = apply_filters('formxtra_cf7_plugin_locale', get_locale(), $domain);
 
-			load_textdomain( $domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo' );
-			load_plugin_textdomain( $domain, false, dirname( FORMXTRACF7_BASE ) . '/languages/' );
+			load_textdomain($domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo');
+			load_plugin_textdomain($domain, false, dirname(FORMXTRACF7_BASE) . '/languages/');
 		}
 
 		/**
-		* Deactivate Pro Plugin if it's not already active
-		*
-		* @author Jewel Theme <support@jeweltheme.com>
-		*/
-		public static function formxtra_cf7_activation_hook() {
-			if ( formxtra_cf7_license_client()->is_free_plan() ) {
+		 * Deactivate Pro Plugin if it's not already active
+		 *
+		 * @author Jewel Theme <support@jeweltheme.com>
+		 */
+		public static function formxtra_cf7_activation_hook()
+		{
+			if (formxtra_cf7_license_client()->is_free_plan()) {
 				$plugin = 'formxtra-cf7-pro/formxtra-cf7.php';
 			} else {
 				$plugin = 'formxtra-cf7/formxtra-cf7.php';
 			}
-			if ( is_plugin_active( $plugin ) ) {
-				deactivate_plugins( $plugin );
+			if (is_plugin_active($plugin)) {
+				deactivate_plugins($plugin);
 			}
 		}
 
@@ -189,8 +201,9 @@ if ( ! class_exists( '\FORMXTRACF7\Formxtra_CF7' ) ) {
 		/**
 		 * Returns the singleton instance of the class.
 		 */
-		public static function get_instance() {
-			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof Formxtra_CF7 ) ) {
+		public static function get_instance()
+		{
+			if (!isset(self::$instance) && !(self::$instance instanceof Formxtra_CF7)) {
 				self::$instance = new Formxtra_CF7();
 				self::$instance->formxtra_cf7_init();
 			}
