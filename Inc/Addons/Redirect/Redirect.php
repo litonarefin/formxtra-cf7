@@ -92,12 +92,12 @@ class Redirect
 	public function formxtra_cf7_redirect_non_ajax_redirection()
 	{
 		// if (isset(WPCF7_Submission::is_restful())) {
-		$submission = WPCF7_Submission::get_instance();
+		// $submission = WPCF7_Submission::get_instance();
 
-		if ($submission->get_status() === 'mail_sent') {
-			wp_redirect('https://jeweltheme.com');
-			exit;
-		}
+		// if ($submission->get_status() === 'mail_sent') {
+		wp_safe_redirect('https://jeweltheme.com/master-addons');
+		exit;
+		// }
 		// }
 	}
 
