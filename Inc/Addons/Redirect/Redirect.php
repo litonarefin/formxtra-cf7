@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Addons
+ * Redirect
  *
  * @author Jewel Theme <support@jeweltheme.com>
  */
@@ -28,11 +28,12 @@ class Redirect
 	 */
 	public function __construct()
 	{
+		// Check: If Enabled
 		// $this->redirect_init();
 		add_action('wpcf7_editor_panels', array($this, 'formxtra_cf7_redirect_add_panel'));
 		// add_action('wpcf7_after_save', array($this, 'formxtra_cf7_redirect_save_meta'));
 		add_action('wpcf7_submit', array($this, 'formxtra_cf7_redirect_redirect'));
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script' ) );
+		add_action('wp_enqueue_scripts', array($this, 'enqueue_script'));
 	}
 
 	/**
@@ -41,9 +42,10 @@ class Redirect
 	 * @return void
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function enqueue_script(){
-		if ( isset( $this->enqueue_new_tab_script ) && $this->enqueue_new_tab_script ) {
-			wp_add_inline_script( 'formxtra-cf7-redirect', 'window.open("' . $this->redirect_url . '");' );
+	public function enqueue_script()
+	{
+		if (isset($this->enqueue_new_tab_script) && $this->enqueue_new_tab_script) {
+			wp_add_inline_script('formxtra-cf7-redirect', 'window.open("' . $this->redirect_url . '");');
 		}
 	}
 
@@ -108,19 +110,21 @@ class Redirect
 	 */
 	public function formxtra_cf7_redirect_redirect()
 	{
+		// Check: If Enabled
+
 		// $this->fields = $this->uacf7_get_options( $contact_form->id() );
 		pretty_log('$submission before');
 
 		// if ( ! empty( $this->fields ) && ! WPCF7_Submission::is_restful() ) {
-		if ( ! \WPCF7_Submission::is_restful() ) {
+		if (!\WPCF7_Submission::is_restful()) {
 			$submission = \WPCF7_Submission::get_instance();
 			if ($submission->get_status() === 'mail_sent') {
 
 				// Open link in a new tab
 				// if ( isset( $this->redirect_url ) && $this->redirect_url ) {
 				// 	$this->enqueue_new_tab_script = true;
-					wp_redirect('https://wpadminify.com');
-					exit;
+				wp_redirect('https://wpadminify.com');
+				exit;
 				// }
 			}
 		}
