@@ -14,8 +14,11 @@ if (!defined('ABSPATH')) {
  */
 class Redirect
 {
-
 	private static $instance = null;
+
+	protected $redirect_url;
+
+	protected $enqueue_new_tab_script;
 
 	/**
 	 * Construct Method
@@ -29,7 +32,21 @@ class Redirect
 		add_action('wpcf7_editor_panels', array($this, 'formxtra_cf7_redirect_add_panel'));
 		// add_action('wpcf7_after_save', array($this, 'formxtra_cf7_redirect_save_meta'));
 		add_action('wpcf7_submit', array($this, 'formxtra_cf7_redirect_redirect'));
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script' ) );
 	}
+
+	/**
+	 * Script for Redirect
+	 *
+	 * @return void
+	 * @author Jewel Theme <support@jeweltheme.com>
+	 */
+	public function enqueue_script(){
+		if ( isset( $this->enqueue_new_tab_script ) && $this->enqueue_new_tab_script ) {
+			wp_add_inline_script( 'formxtra-cf7-redirect', 'window.open("' . $this->redirect_url . '");' );
+		}
+	}
+
 
 	/**
 	 * Add Tab Panel
@@ -98,8 +115,13 @@ class Redirect
 		if ( ! \WPCF7_Submission::is_restful() ) {
 			$submission = \WPCF7_Submission::get_instance();
 			if ($submission->get_status() === 'mail_sent') {
-				wp_redirect('https://jeweltheme.com/master-addons');
-				exit;
+
+				// Open link in a new tab
+				// if ( isset( $this->redirect_url ) && $this->redirect_url ) {
+				// 	$this->enqueue_new_tab_script = true;
+					wp_redirect('https://wpadminify.com');
+					exit;
+				// }
 			}
 		}
 	}
