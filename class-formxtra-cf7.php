@@ -10,7 +10,7 @@ use FORMXTRACF7\Inc\Classes\Notifications\Notifications;
 use FORMXTRACF7\Inc\Classes\Pro_Upgrade;
 use FORMXTRACF7\Inc\Classes\Upgrade_Plugin;
 use FORMXTRACF7\Inc\Classes\Feedback;
-use FORMXTRACF7\Inc\Addons\Addons;
+use FORMXTRACF7\Inc\Classes\Admin;
 
 /**
  * Main Class
@@ -46,7 +46,7 @@ if (!class_exists('\FORMXTRACF7\Formxtra_CF7')) {
 		 */
 		public function __construct()
 		{
-			add_action('plugins_loaded', array($this, 'formxtra_cf7_plugins_loaded'), 999);
+			add_action('plugins_loaded', array($this, 'formxtra_cf7_plugins_loaded'));
 			// Body Class.
 			add_filter('admin_body_class', array($this, 'formxtra_cf7_body_class'));
 			// This should run earlier .
@@ -60,8 +60,8 @@ if (!class_exists('\FORMXTRACF7\Formxtra_CF7')) {
 		 */
 		public function formxtra_cf7_plugins_loaded()
 		{
-			$this->formxtra_cf7_activate();
 			$this->includes();
+			$this->formxtra_cf7_activate();
 		}
 
 		/**
@@ -145,13 +145,13 @@ if (!class_exists('\FORMXTRACF7\Formxtra_CF7')) {
 		 */
 		public function includes()
 		{
+			new Admin();
 			new Assets();
 			new Recommended_Plugins();
 			new Pro_Upgrade();
 			new Notifications();
 			new Featured();
 			new Feedback();
-			new Addons();
 		}
 
 

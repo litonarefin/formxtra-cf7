@@ -187,7 +187,7 @@ class Pro_Upgrade {
                         <span aria-hidden="true" class="dashicons dashicons-external"></span>
                     </a>
                 </li>
-                
+
 			</ul>
 		</div>
 		<style>
@@ -360,6 +360,13 @@ class Pro_Upgrade {
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
 	public function get_sheet_promo_remote_data() {
+
+
+		$transient_key = $this->slug . '_sheet_promo_data';
+
+		$data = get_transient( $transient_key );
+		if ( $data !== false ) return $data;
+
 		$url = $this->get_sheet_url();
 
 		$response = wp_remote_get( $url );
@@ -378,20 +385,14 @@ class Pro_Upgrade {
 
 		$header = array_shift( $data );
 
-		$data = array_map(
-			function ( array $row ) use ( $header ) {
-				return array_combine( $header, $row );
-			},
-			$data
-		);
+		$data = array_map( function ( array $row ) use ( $header ) {
+			return array_combine( $header, $row );
+		}, $data );
 
 		// filter plugin is not empty .
-		$data = array_filter(
-			$data,
-			function ( $row ) {
-				return ! empty( $row['name'] );
-			}
-		);
+		$data = array_filter( $data, function ( $row ) {
+			return ! empty( $row['name'] );
+		});
 
 		$plugin_slug = Helper::formxtra_cf7_slug_cleanup();
 		$data        = wp_list_filter( $data, array( 'product_slug' => $plugin_slug ) );
@@ -399,6 +400,8 @@ class Pro_Upgrade {
 		if ( ! empty( $data ) ) {
 			$data = array_values( $data )[0];
 		}
+
+		set_transient( $transient_key, $data, HOUR_IN_SECONDS );
 
 		return $data;
 	}

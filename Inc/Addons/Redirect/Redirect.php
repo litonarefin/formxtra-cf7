@@ -27,8 +27,8 @@ class Redirect
 	{
 		// $this->redirect_init();
 		add_action('wpcf7_editor_panels', array($this, 'formxtra_cf7_redirect_add_panel'));
-		add_action('wpcf7_after_save', array($this, 'formxtra_cf7_redirect_save_meta'));
-		add_action('wpcf7_submit', array($this, 'formxtra_cf7_redirect_non_ajax_redirection'));
+		// add_action('wpcf7_after_save', array($this, 'formxtra_cf7_redirect_save_meta'));
+		add_action('wpcf7_submit', array($this, 'formxtra_cf7_redirect_redirect'));
 	}
 
 	/**
@@ -89,16 +89,19 @@ class Redirect
 	 *
 	 * @return void
 	 */
-	public function formxtra_cf7_redirect_non_ajax_redirection()
+	public function formxtra_cf7_redirect_redirect()
 	{
-		// if (isset(WPCF7_Submission::is_restful())) {
-		// $submission = WPCF7_Submission::get_instance();
+		// $this->fields = $this->uacf7_get_options( $contact_form->id() );
+		pretty_log('$submission before');
 
-		// if ($submission->get_status() === 'mail_sent') {
-		wp_safe_redirect('https://jeweltheme.com/master-addons');
-		exit;
-		// }
-		// }
+		// if ( ! empty( $this->fields ) && ! WPCF7_Submission::is_restful() ) {
+		if ( ! \WPCF7_Submission::is_restful() ) {
+			$submission = \WPCF7_Submission::get_instance();
+			if ($submission->get_status() === 'mail_sent') {
+				wp_redirect('https://jeweltheme.com/master-addons');
+				exit;
+			}
+		}
 	}
 
 
