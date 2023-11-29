@@ -18,7 +18,6 @@ if (!defined('ABSPATH')) {
 class Admin
 {
 
-
     /**
      * Construct Method
      *
@@ -29,12 +28,40 @@ class Admin
     {
         $this->include_addons();
         add_action('admin_menu', array($this, 'formxtra_cf7_admin_menu'));
+
+        if (defined('WPCF7_VERSION') && WPCF7_VERSION >= 5.7) {
+            add_filter('wpcf7_autop_or_not', '__return_false');
+        }
     }
 
     public function include_addons()
     {
-        new Addons();
+        if (class_exists('WPCF7')) {
+            new Addons();
+        } else {
+            //Admin notice
+            add_action('admin_notices', array($this, 'formxtra_cf7_admin_notice'));
+        }
     }
+
+
+    /*
+    * Admin notice- To check the Contact form 7 plugin is installed
+    */
+    public function formxtra_cf7_admin_notice()
+    { ?>
+        <div class="formxtra-cf7 notice notice-error">
+            <p>
+                <?php printf(
+                    __('%s requires %s to be installed and active. You can install and activate it from %s', 'formxtra-cf7'),
+                    '<strong>Formxtra CF7 for Contact Form 7</strong>',
+                    '<strong>Contact form 7</strong>',
+                    '<a href="' . admin_url('plugin-install.php?tab=search&s=contact+form+7') . '">here</a>.'
+                ); ?></p>
+        </div>
+<?php
+    }
+
 
     /**
      * Admin Menu

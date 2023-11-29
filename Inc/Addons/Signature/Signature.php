@@ -64,7 +64,7 @@ class Signature
             <fieldset>
                 <table class="form-table">
                     <tbody>
-                        <div class="uacf7-doc-notice">
+                        <div class="formxtra-cf7-doc-notice">
                             <?php echo sprintf(
                                 __('Not sure how to set this? Check our step by step  %1s.', 'formxtra-cf7'),
                                 '<a href="https://themefic.com/docs/uacf7/free-addons/signature-field/" target="_blank">documentation</a>'
@@ -108,6 +108,7 @@ class Signature
      */
     public function formxtra_cf7_signature_shortcode()
     {
+
         wpcf7_add_form_tag(
             array('formxtra_cf7_signature', 'formxtra_cf7_signature*'),
             array($this, 'formxtra_cf7_signature_tag_handler_callback'),
@@ -120,6 +121,7 @@ class Signature
 
     public function formxtra_cf7_signature_tag_handler_callback($tag)
     {
+
         if (empty($tag->name)) {
             return '';
         }
@@ -132,11 +134,11 @@ class Signature
         // $bg_color                 = $uacf7_signature_settings['uacf7_signature_bg_color'];
         // $pen_color                = $uacf7_signature_settings['uacf7_signature_pen_color'];
 
+        pretty_log('$formid', $formid);
 
-
-        if ($uacf7_signature_enable != 'on' || $uacf7_signature_enable === '') {
-            return;
-        }
+        // if ($uacf7_signature_enable != 'on' || $uacf7_signature_enable === '') {
+        //     return;
+        // }
         $validation_error = wpcf7_get_validation_error($tag->name);
 
         $class = wpcf7_form_controls_class($tag->type);

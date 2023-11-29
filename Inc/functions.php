@@ -1,6 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @license       Copyright Formxtra_CF7
  */
 
-if ( ! function_exists( 'formxtra_cf7_option' ) ) {
+if (!function_exists('formxtra_cf7_option')) {
 	/**
 	 * Get setting database option
 	 *
@@ -20,14 +20,15 @@ if ( ! function_exists( 'formxtra_cf7_option' ) ) {
 	 *
 	 * @return string
 	 */
-	function formxtra_cf7_option( $section = 'formxtra_cf7_general', $key = '', $default = '' ) {
-		$settings = get_option( $section );
+	function formxtra_cf7_option($section = 'formxtra_cf7_general', $key = '', $default = '')
+	{
+		$settings = get_option($section);
 
-		return isset( $settings[ $key ] ) ? $settings[ $key ] : $default;
+		return isset($settings[$key]) ? $settings[$key] : $default;
 	}
 }
 
-if ( ! function_exists( 'formxtra_cf7_exclude_pages' ) ) {
+if (!function_exists('formxtra_cf7_exclude_pages')) {
 	/**
 	 * Get exclude pages setting option data
 	 *
@@ -35,12 +36,13 @@ if ( ! function_exists( 'formxtra_cf7_exclude_pages' ) ) {
 	 *
 	 * @version 1.0.0
 	 */
-	function formxtra_cf7_exclude_pages() {
-		return formxtra_cf7_option( 'formxtra_cf7_triggers', 'exclude_pages', array() );
+	function formxtra_cf7_exclude_pages()
+	{
+		return formxtra_cf7_option('formxtra_cf7_triggers', 'exclude_pages', array());
 	}
 }
 
-if ( ! function_exists( 'formxtra_cf7_exclude_pages_except' ) ) {
+if (!function_exists('formxtra_cf7_exclude_pages_except')) {
 	/**
 	 * Get exclude pages except setting option data
 	 *
@@ -48,7 +50,23 @@ if ( ! function_exists( 'formxtra_cf7_exclude_pages_except' ) ) {
 	 *
 	 * @version 1.0.0
 	 */
-	function formxtra_cf7_exclude_pages_except() {
-		return formxtra_cf7_option( 'formxtra_cf7_triggers', 'exclude_pages_except', array() );
+	function formxtra_cf7_exclude_pages_except()
+	{
+		return formxtra_cf7_option('formxtra_cf7_triggers', 'exclude_pages_except', array());
 	}
+}
+
+
+//Add wrapper to contact form 7
+add_filter('wpcf7_contact_form_properties', 'formxtra_cf7_add_form_wrapper', 10, 2);
+function formxtra_cf7_add_form_wrapper($properties, $cfform)
+{
+	if (!is_admin() || (defined('DOING_AJAX') && DOING_AJAX)) {
+
+		$form = $properties['form'];
+		ob_start();
+		echo '<div class="formxtra-cf7-form-' . $cfform->id() . '">' . $form . '</div>';
+		$properties['form'] = ob_get_clean();
+	}
+	return $properties;
 }

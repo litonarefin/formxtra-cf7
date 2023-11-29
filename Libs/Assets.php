@@ -66,15 +66,15 @@ if (!class_exists('Assets')) {
 			$screen = get_current_screen();
 
 			if (!empty($screen->id) && $screen->id === 'toplevel_page_wpcf7') {
-				// 	return;
 				wp_enqueue_style('formxtra-cf7-admin', FORMXTRACF7_ASSETS . 'css/formxtra-cf7-admin.min.css');
+				wp_enqueue_script('formxtra-cf7-admin-script', FORMXTRACF7_ASSETS . 'js/formxtra-cf7-admin.js', array('jquery'), FORMXTRACF7_VER, true);;
 			}
 
 			// CSS Files .
 			wp_enqueue_style('formxtra-cf7-sdk', FORMXTRACF7_ASSETS . 'css/formxtra-cf7-sdk.min.css', array('dashicons'), FORMXTRACF7_VER, 'all');
 
 			// JS Files .
-			wp_enqueue_script('formxtra-cf7-sdk', FORMXTRACF7_ASSETS . 'js/formxtra-cf7-admin.js', array('jquery'), FORMXTRACF7_VER, true);
+			wp_enqueue_script('formxtra-cf7-sdk', FORMXTRACF7_ASSETS . 'js/formxtra-cf7-sdk.js', array('jquery'), FORMXTRACF7_VER, true);
 			wp_localize_script(
 				'formxtra-cf7-sdk',
 				'FORMXTRACF7CORE',

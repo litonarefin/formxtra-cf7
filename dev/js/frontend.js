@@ -12,13 +12,13 @@ jQuery(document).ready(function ($) {
         $(form).find("#signature-pad").each(function (i, wrap) {
 
 
-            var convertButton = $('.uacf7-form-' + formId).find("#convertButton");
-            var signature_canvas = $('.uacf7-form-' + formId).find("#signature-canvas");
-            var confirm_message = $('.uacf7-form-' + formId).find("#confirm_message");
-            var fileInput = $('.uacf7-form-' + formId).find('#img_id_special');
+            var convertButton = $('.formxtra-cf7-' + formId).find("#convertButton");
+            var signature_canvas = $('.formxtra-cf7-' + formId).find("#signature-canvas");
+            var confirm_message = $('.formxtra-cf7-' + formId).find("#confirm_message");
+            var fileInput = $('.formxtra-cf7-' + formId).find('#img_id_special');
             fileInput.css('display', 'none');
-            var clearButton = $('.uacf7-form-' + formId).find("#clear-button");
-            var control_div = $('.uacf7-form-' + formId).find(".control_div");
+            var clearButton = $('.formxtra-cf7-' + formId).find("#clear-button");
+            var control_div = $('.formxtra-cf7-' + formId).find(".control_div");
 
             var data;
             var pad_bg_color = fileInput.attr('bg-color');
@@ -124,7 +124,7 @@ jQuery(document).ready(function ($) {
 
             // /** Make Empty the Signature Art Board after Form Submission */
 
-            $('.uacf7-form-' + formId).find('.wpcf7-submit').click(function () {
+            $('.formxtra-cf7-' + formId).find('.wpcf7-submit').click(function () {
                 signaturePad.clear();
                 signs = [];
                 confirm_message.text('');
@@ -132,7 +132,7 @@ jQuery(document).ready(function ($) {
 
             /** Preventing file system opening */
 
-            $('.uacf7-form-' + formId).find('#img_id_special').click(function (e) {
+            $('.formxtra-cf7-' + formId).find('#img_id_special').click(function (e) {
                 e.preventDefault();
             });
 

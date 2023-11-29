@@ -18,5 +18,13 @@
   font-weight: 600 !important;
   line-height: 1.5 !important;
 }
+[id*=formxtra-cf7-] .formxtra-cf7-doc-notice {
+  background: #e3f3ff;
+  margin-top: 25px;
+  font-size: 14px;
+  padding: 10px 20px 15px;
+  border-radius: 3px;
+  margin-bottom: 25px;
+}
 
 /*# sourceMappingURL=formxtra-cf7-admin.min.css.map*/

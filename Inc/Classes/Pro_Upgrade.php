@@ -1,4 +1,5 @@
 <?php
+
 namespace FORMXTRACF7\Inc\Classes;
 
 use FORMXTRACF7\Libs\Helper;
@@ -6,7 +7,7 @@ use FORMXTRACF7\Inc\Classes\Notifications\Base\Date;
 
 
 // No, Direct access Sir !!!
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 	exit;
 }
 
@@ -15,7 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Jewel Theme <support@jeweltheme.com>
  */
-class Pro_Upgrade {
+class Pro_Upgrade
+{
 
 	use Date;
 
@@ -37,16 +39,17 @@ class Pro_Upgrade {
 	/**
 	 * Construct method
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 		$this->slug = Helper::formxtra_cf7_slug_cleanup();
 
 		$this->maybe_sync_remote_data();
 		$this->register_sync_hook();
 		$this->set_data();
 
-		add_action( 'admin_footer', array( $this, 'display_popup' ) );
+		add_action('admin_footer', array($this, 'display_popup'));
 
-		add_action( 'wp_dashboard_setup', array( $this, 'dashboard_widget' ) );
+		add_action('wp_dashboard_setup', array($this, 'dashboard_widget'));
 	}
 
 	/**
@@ -55,11 +58,12 @@ class Pro_Upgrade {
 	 * @return void
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function dashboard_widget() {
+	public function dashboard_widget()
+	{
 		wp_add_dashboard_widget(
 			'formxtra_cf7_dashboard_widget',                          // Widget slug.
-			esc_html__( 'Formxtra CF7 News & Updates', 'formxtra-cf7' ), // Title.
-			array( $this, 'dashboard_widget_render' )                    // Display function.
+			esc_html__('Formxtra CF7 News & Updates', 'formxtra-cf7'), // Title.
+			array($this, 'dashboard_widget_render')                    // Display function.
 		);
 
 		// Globalize the metaboxes array, this holds all the widgets for wp-admin.
@@ -70,11 +74,11 @@ class Pro_Upgrade {
 		$default_dashboard = $wp_meta_boxes['dashboard']['normal']['core'];
 
 		// Backup and delete our new dashboard widget from the end of the array.
-		$example_widget_backup = array( 'formxtra_cf7_dashboard_widget' => $default_dashboard['formxtra_cf7_dashboard_widget'] );
-		unset( $default_dashboard['formxtra_cf7_dashboard_widget'] );
+		$example_widget_backup = array('formxtra_cf7_dashboard_widget' => $default_dashboard['formxtra_cf7_dashboard_widget']);
+		unset($default_dashboard['formxtra_cf7_dashboard_widget']);
 
 		// Merge the two arrays together so our widget is at the beginning.
-		$sorted_dashboard = array_merge( $example_widget_backup, $default_dashboard );
+		$sorted_dashboard = array_merge($example_widget_backup, $default_dashboard);
 
 		// Save the sorted array back into the original metaboxes .
 		$wp_meta_boxes['dashboard']['normal']['core'] = $sorted_dashboard;
@@ -85,50 +89,51 @@ class Pro_Upgrade {
 	 *
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function dashboard_widget_render() {
+	public function dashboard_widget_render()
+	{
 		include_once ABSPATH . WPINC . '/feed.php';
 
 		$feed_url = 'https://jeweltheme.com/feed.xml';
 
 		// Get a SimplePie feed object from the specified feed source .
-		$rss      = fetch_feed( $feed_url );
+		$rss      = fetch_feed($feed_url);
 		$maxitems = 0;
 
-		if ( ! is_wp_error( $rss ) ) { // Checks that the object is created correctly .
+		if (!is_wp_error($rss)) { // Checks that the object is created correctly .
 			// Figure out how many total items there are, and choose a limit .
-			$maxitems = $rss->get_item_quantity( 5 );
+			$maxitems = $rss->get_item_quantity(5);
 
 			// Build an array of all the items, starting with element 0 (first element).
-			$rss_items = $rss->get_items( 0, $maxitems );
+			$rss_items = $rss->get_items(0, $maxitems);
 
 			// Get RSS title .
-			$rss_title = '<a href="' . $rss->get_permalink() . '" target="_blank">' . strtoupper( $rss->get_title() ) . '</a>';
+			$rss_title = '<a href="' . $rss->get_permalink() . '" target="_blank">' . strtoupper($rss->get_title()) . '</a>';
 		}
 
 		// Display the container .
 		echo '<div class="formxtra-cf7-rss-widget">';
 
-		if ( wp_validate_boolean( $this->get_content( 'is_campaign' ) ) ) { ?>
+		if (wp_validate_boolean($this->get_content('is_campaign'))) { ?>
 
-			<div class="formxtra-cf7-dashboard-promo" style="--formxtra-cf7-popup-color: <?php echo esc_attr( $this->get_content( 'btn_color' ) ); ?>;">
-				<a target="_blank" href="<?php echo esc_url( $this->get_content( 'button_url' ) ); ?>">
-					<img src="<?php echo esc_url( $this->get_content( 'image_url' ) ); ?>" alt="Formxtra CF7 Promo Image" style="width: 100%; height: auto;">
+			<div class="formxtra-cf7-dashboard-promo" style="--formxtra-cf7-popup-color: <?php echo esc_attr($this->get_content('btn_color')); ?>;">
+				<a target="_blank" href="<?php echo esc_url($this->get_content('button_url')); ?>">
+					<img src="<?php echo esc_url($this->get_content('image_url')); ?>" alt="Formxtra CF7 Promo Image" style="width: 100%; height: auto;">
 				</a>
 
-				<a class="formxtra-cf7-popup-button" target="_blank" href="<?php echo esc_url( $this->get_content( 'button_url' ) ); ?>">
-					<?php echo esc_html( $this->get_content( 'button_text' ) ); ?>
+				<a class="formxtra-cf7-popup-button" target="_blank" href="<?php echo esc_url($this->get_content('button_url')); ?>">
+					<?php echo esc_html($this->get_content('button_text')); ?>
 				</a>
 			</div>
 
-			<?php
+		<?php
 		}
 
 		// Starts items listing within <ul> tag
 		// Check items .
-		if ( ! empty( $maxitems ) ) {
+		if (!empty($maxitems)) {
 			echo '<ul>';
 			// Loop through each feed item and display each item as a hyperlink.
-			foreach ( $rss_items as $item ) {
+			foreach ($rss_items as $item) {
 				// Uncomment line below to display non human date
 				// $item_date = $item->get_date( get_option('date_format').' @ '.get_option('time_format') ); .
 
@@ -138,18 +143,18 @@ class Pro_Upgrade {
 				// Start displaying item content within a <li> tag .
 				echo '<li>';
 				// create item link .
-				echo '<a href="' . esc_url( $item->get_permalink() ) . '" title="' . esc_attr( $item->get_title() ) . '" target="_blank">';
+				echo '<a href="' . esc_url($item->get_permalink()) . '" title="' . esc_attr($item->get_title()) . '" target="_blank">';
 				// Get item title .
-				echo esc_html( $item->get_title() );
+				echo esc_html($item->get_title());
 				echo '</a>';
 				// Display date .
 				//echo ' <span class="rss-date">' . esc_html( $item_date ) . '</span><br />';
 				// Get item content .
 				$content = $item->get_content();
 				// Shorten content .
-				$content = wp_html_excerpt( $content, 120 ) . ' ';
+				$content = wp_html_excerpt($content, 120) . ' ';
 				// Display content .
-				echo esc_html( $content );
+				echo esc_html($content);
 				// End <li> tag .
 				echo '</li>';
 			}
@@ -161,32 +166,32 @@ class Pro_Upgrade {
 		<div class="formxtra-cf7-dashboard_footer">
 			<ul>
 				<li class="formxtra-cf7-overview__blog">
-                    <a href="https://jeweltheme.com/blog" target="_blank">
-                        Blog
-                        <span class="screen-reader-text">
-                            <?php echo esc_html__( '(opens in a new window)', 'formxtra-cf7' ); ?>
-                        </span>
-                        <span aria-hidden="true" class="dashicons dashicons-external"></span>
-                    </a>
-                </li>
-                <li class="formxtra-cf7-overview__help">
-                    <a href="https://jeweltheme.com/docs" target="_blank">
-                        Help
-                        <span class="screen-reader-text">
-                            <?php echo esc_html__( '(opens in a new window)', 'formxtra-cf7' ); ?>
-                        </span>
-                        <span aria-hidden="true" class="dashicons dashicons-external"></span>
-                    </a>
-                </li>
-                <li class="formxtra-cf7-overview__upgrade">
-                    <a href="https://jeweltheme.com" target="_blank">
-                        Upgrade
-                        <span class="screen-reader-text">
-                            <?php echo esc_html__( '(opens in a new window)', 'formxtra-cf7' ); ?>
-                        </span>
-                        <span aria-hidden="true" class="dashicons dashicons-external"></span>
-                    </a>
-                </li>
+					<a href="https://jeweltheme.com/blog" target="_blank">
+						Blog
+						<span class="screen-reader-text">
+							<?php echo esc_html__('(opens in a new window)', 'formxtra-cf7'); ?>
+						</span>
+						<span aria-hidden="true" class="dashicons dashicons-external"></span>
+					</a>
+				</li>
+				<li class="formxtra-cf7-overview__help">
+					<a href="https://jeweltheme.com/docs" target="_blank">
+						Help
+						<span class="screen-reader-text">
+							<?php echo esc_html__('(opens in a new window)', 'formxtra-cf7'); ?>
+						</span>
+						<span aria-hidden="true" class="dashicons dashicons-external"></span>
+					</a>
+				</li>
+				<li class="formxtra-cf7-overview__upgrade">
+					<a href="https://jeweltheme.com" target="_blank">
+						Upgrade
+						<span class="screen-reader-text">
+							<?php echo esc_html__('(opens in a new window)', 'formxtra-cf7'); ?>
+						</span>
+						<span aria-hidden="true" class="dashicons dashicons-external"></span>
+					</a>
+				</li>
 
 			</ul>
 		</div>
@@ -224,7 +229,7 @@ class Pro_Upgrade {
 			}
 		</style>
 
-		<?php
+	<?php
 		echo '</div>';
 	}
 
@@ -235,8 +240,9 @@ class Pro_Upgrade {
 	 * @return void
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function set_data() {
-		$this->data = Helper::get_merged_data( self::get_data() );
+	public function set_data()
+	{
+		$this->data = Helper::get_merged_data(self::get_data());
 	}
 
 	/**
@@ -244,8 +250,9 @@ class Pro_Upgrade {
 	 *
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public static function get_data() {
-		return get_option( 'formxtra_cf7_sheet_promo_data' );
+	public static function get_data()
+	{
+		return get_option('formxtra_cf7_sheet_promo_data');
 	}
 
 	/**
@@ -255,8 +262,9 @@ class Pro_Upgrade {
 	 *
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function get_content( $key ) {
-		return $this->data[ $key ];
+	public function get_content($key)
+	{
+		return $this->data[$key];
 	}
 
 	/**
@@ -264,8 +272,9 @@ class Pro_Upgrade {
 	 *
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function get_data_hash() {
-		return get_option( 'formxtra_cf7_sheet_promo_data_hash' );
+	public function get_data_hash()
+	{
+		return get_option('formxtra_cf7_sheet_promo_data_hash');
 	}
 
 	/**
@@ -273,10 +282,11 @@ class Pro_Upgrade {
 	 *
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function maybe_sync_remote_data() {
+	public function maybe_sync_remote_data()
+	{
 		$data = self::get_data();
 
-		if ( empty( $data ) ) {
+		if (empty($data)) {
 			$this->sheet_data_remote_sync();
 		}
 	}
@@ -287,15 +297,16 @@ class Pro_Upgrade {
 	 * @return void
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function register_sync_hook() {
+	public function register_sync_hook()
+	{
 		$hook_action = 'formxtra_cf7_sheet_promo_data_remote_sync';
-		add_action( $hook_action, array( $this, 'sheet_data_remote_sync' ) );
+		add_action($hook_action, array($this, 'sheet_data_remote_sync'));
 
-		if ( ! wp_next_scheduled( $hook_action ) ) {
-			wp_schedule_event( time(), 'daily', $hook_action );
+		if (!wp_next_scheduled($hook_action)) {
+			wp_schedule_event(time(), 'daily', $hook_action);
 		}
 
-		register_deactivation_hook( FORMXTRACF7_FILE, array( $this, 'clear_register_sync_hook' ) );
+		register_deactivation_hook(FORMXTRACF7_FILE, array($this, 'clear_register_sync_hook'));
 	}
 
 	/**
@@ -304,8 +315,9 @@ class Pro_Upgrade {
 	 * @return void
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function clear_register_sync_hook() {
-		wp_clear_scheduled_hook( 'formxtra_cf7_sheet_promo_data_remote_sync' );
+	public function clear_register_sync_hook()
+	{
+		wp_clear_scheduled_hook('formxtra_cf7_sheet_promo_data_remote_sync');
 	}
 
 	/**
@@ -314,22 +326,23 @@ class Pro_Upgrade {
 	 * @return void
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function sheet_data_remote_sync() {
+	public function sheet_data_remote_sync()
+	{
 		$data  = self::get_data();
 		$force = false;
 
-		if ( empty( $data ) ) {
+		if (empty($data)) {
 			$force = true;
 		}
 
 		$sheet_hash_data = $this->get_data_hash();
 		$remote_data     = $this->get_sheet_promo_remote_data();
-		$sheet_data_hash = base64_encode( json_encode( $remote_data ) );
+		$sheet_data_hash = base64_encode(json_encode($remote_data));
 
-		if ( $force || $sheet_hash_data !== $sheet_data_hash ) {
-			update_option( 'formxtra_cf7_sheet_promo_data', $remote_data );
-			update_option( 'formxtra_cf7_sheet_promo_data_hash', $sheet_data_hash );
-			do_action( 'formxtra_cf7_sheet_promo_data_reset' );
+		if ($force || $sheet_hash_data !== $sheet_data_hash) {
+			update_option('formxtra_cf7_sheet_promo_data', $remote_data);
+			update_option('formxtra_cf7_sheet_promo_data_hash', $sheet_data_hash);
+			do_action('formxtra_cf7_sheet_promo_data_reset');
 		}
 	}
 
@@ -338,8 +351,9 @@ class Pro_Upgrade {
 	 *
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function get_mode() {
-		return defined( 'WP_DEBUG' ) && WP_DEBUG ? 'development' : 'production';
+	public function get_mode()
+	{
+		return defined('WP_DEBUG') && WP_DEBUG ? 'development' : 'production';
 	}
 
 	/**
@@ -347,9 +361,10 @@ class Pro_Upgrade {
 	 *
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function get_sheet_url() {
-		$sheet_id = $this->modes[ $this->get_mode() ]['sheet_id'];
-		$tab_id   = $this->modes[ $this->get_mode() ]['tab_id'];
+	public function get_sheet_url()
+	{
+		$sheet_id = $this->modes[$this->get_mode()]['sheet_id'];
+		$tab_id   = $this->modes[$this->get_mode()]['tab_id'];
 
 		return "https://docs.google.com/spreadsheets/export?format=csv&id={$sheet_id}&gid={$tab_id}";
 	}
@@ -359,49 +374,50 @@ class Pro_Upgrade {
 	 *
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function get_sheet_promo_remote_data() {
+	public function get_sheet_promo_remote_data()
+	{
 
 
 		$transient_key = $this->slug . '_sheet_promo_data';
 
-		$data = get_transient( $transient_key );
-		if ( $data !== false ) return $data;
+		$data = get_transient($transient_key);
+		if ($data !== false) return $data;
 
 		$url = $this->get_sheet_url();
 
-		$response = wp_remote_get( $url );
+		$response = wp_remote_get($url);
 
-		if ( is_wp_error( $response ) ) {
+		if (is_wp_error($response)) {
 			return false;
 		}
 
-		$response = wp_remote_retrieve_body( $response );
+		$response = wp_remote_retrieve_body($response);
 
-		if ( ! $response ) {
+		if (!$response) {
 			return false;
 		}
 
-		$data = array_map( 'str_getcsv', explode( "\n", $response ) );
+		$data = array_map('str_getcsv', explode("\n", $response));
 
-		$header = array_shift( $data );
+		$header = array_shift($data);
 
-		$data = array_map( function ( array $row ) use ( $header ) {
-			return array_combine( $header, $row );
-		}, $data );
+		$data = array_map(function (array $row) use ($header) {
+			return array_combine($header, $row);
+		}, $data);
 
 		// filter plugin is not empty .
-		$data = array_filter( $data, function ( $row ) {
-			return ! empty( $row['name'] );
+		$data = array_filter($data, function ($row) {
+			return !empty($row['name']);
 		});
 
 		$plugin_slug = Helper::formxtra_cf7_slug_cleanup();
-		$data        = wp_list_filter( $data, array( 'product_slug' => $plugin_slug ) );
+		$data        = wp_list_filter($data, array('product_slug' => $plugin_slug));
 
-		if ( ! empty( $data ) ) {
-			$data = array_values( $data )[0];
+		if (!empty($data)) {
+			$data = array_values($data)[0];
 		}
 
-		set_transient( $transient_key, $data, HOUR_IN_SECONDS );
+		set_transient($transient_key, $data, HOUR_IN_SECONDS);
 
 		return $data;
 	}
@@ -411,16 +427,17 @@ class Pro_Upgrade {
 	 *
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function display_popup() {
-		$image_url = $this->get_content( 'image_url' );
+	public function display_popup()
+	{
+		$image_url = $this->get_content('image_url');
 
-		?>
+	?>
 
-		<div class="formxtra-cf7-popup formxtra-cf7-upgrade-popup" id="formxtra-cf7-popup" data-plugin="<?php echo esc_attr( $this->slug ); ?>" tabindex="1" style="display: none;">
+		<div class="formxtra-cf7-popup formxtra-cf7-upgrade-popup" id="formxtra-cf7-popup" data-plugin="<?php echo esc_attr($this->slug); ?>" tabindex="1" style="display: none;">
 
 			<div class="formxtra-cf7-popup-overlay"></div>
 
-			<div class="formxtra-cf7-popup-modal" style="background-image: url('<?php echo esc_url( $image_url ); ?>'); --formxtra-cf7-popup-color: <?php echo esc_attr( $this->get_content( 'btn_color' ) ); ?>;">
+			<div class="formxtra-cf7-popup-modal" style="background-image: url('<?php echo esc_url($image_url); ?>'); --formxtra-cf7-popup-color: <?php echo esc_attr($this->get_content('btn_color')); ?>;">
 
 				<!-- close  -->
 				<div class="formxtra-cf7-popup-modal-close popup-dismiss">×</div>
@@ -430,44 +447,44 @@ class Pro_Upgrade {
 
 					<!-- countdown  -->
 					<div class="formxtra-cf7-popup-countdown" style="display: none;">
-						<?php if(!empty( $this->get_content( 'notice' ) )){ ?>
+						<?php if (!empty($this->get_content('notice'))) { ?>
 							<span data-counter="notice" style="color:#F4B740; font-size:14px; padding-bottom:20px; font-style:italic;">
-								<?php echo esc_html__( 'Notice:', 'formxtra-cf7' );?> <?php echo $this->get_content( 'notice' );?>
+								<?php echo esc_html__('Notice:', 'formxtra-cf7'); ?> <?php echo $this->get_content('notice'); ?>
 							</span>
 						<?php } ?>
-						<span class="formxtra-cf7-popup-countdown-text"><?php echo esc_html__( 'Offer Ends In', 'formxtra-cf7' );?></span>
+						<span class="formxtra-cf7-popup-countdown-text"><?php echo esc_html__('Offer Ends In', 'formxtra-cf7'); ?></span>
 						<div class="formxtra-cf7-popup-countdown-time">
 							<div>
 								<span data-counter="days">00</span>
-								<span><?php echo esc_html__( 'Days', 'formxtra-cf7' );?></span>
+								<span><?php echo esc_html__('Days', 'formxtra-cf7'); ?></span>
 							</div>
 							<span>:</span>
 							<div>
 								<span data-counter="hours">00</span>
-								<span><?php echo esc_html__( 'Hours', 'formxtra-cf7' );?></span>
+								<span><?php echo esc_html__('Hours', 'formxtra-cf7'); ?></span>
 							</div>
 							<span>:</span>
 							<div>
 								<span data-counter="minutes">00</span>
-								<span><?php echo esc_html__( 'Minutes', 'formxtra-cf7' );?></span>
+								<span><?php echo esc_html__('Minutes', 'formxtra-cf7'); ?></span>
 							</div>
 							<span>:</span>
 							<div>
 								<span data-counter="seconds">00</span>
-								<span><?php echo esc_html__( 'Seconds', 'formxtra-cf7' );?></span>
+								<span><?php echo esc_html__('Seconds', 'formxtra-cf7'); ?></span>
 							</div>
 						</div>
 					</div>
 
 					<!-- button  -->
-					<a class="formxtra-cf7-popup-button" target="_blank" href="<?php echo esc_url( $this->get_content( 'button_url' ) ); ?>"><?php echo esc_html( $this->get_content( 'button_text' ) ); ?></a>
+					<a class="formxtra-cf7-popup-button" target="_blank" href="<?php echo esc_url($this->get_content('button_url')); ?>"><?php echo esc_html($this->get_content('button_text')); ?></a>
 				</div>
 			</div>
 		</div>
 
 		<script>
 			var $container = jQuery('#formxtra-cf7-popup'),
-				plugin_data = <?php echo json_encode( $this->get_sheet_promo_remote_data(), true ); ?>,
+				plugin_data = <?php echo json_encode($this->get_sheet_promo_remote_data(), true); ?>,
 				events = {}; //Events
 
 			// Update Counter
@@ -550,10 +567,10 @@ class Pro_Upgrade {
 				}, 1000);
 			}
 
-			initCounter( '<?php echo esc_attr( $this->counter_date() ); ?>' );
+			initCounter('<?php echo esc_attr($this->counter_date()); ?>');
 		</script>
 
-		<?php
+<?php
 	}
 
 	/**
@@ -561,15 +578,16 @@ class Pro_Upgrade {
 	 *
 	 * @author Jewel Theme <support@jeweltheme.com>
 	 */
-	public function counter_date() {
-		$endDate = $this->get_content( 'end_date' );
+	public function counter_date()
+	{
+		$endDate = $this->get_content('end_date');
 
-		$is_active = $this->date_is_current_or_next( $endDate );
+		$is_active = $this->date_is_current_or_next($endDate);
 
-		if ( $is_active ) {
+		if ($is_active) {
 			return $endDate;
 		}
 
-		return $this->date_increment( $this->current_time(), 3 );
+		return $this->date_increment($this->current_time(), 3);
 	}
 }

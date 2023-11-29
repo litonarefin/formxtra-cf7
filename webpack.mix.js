@@ -48,6 +48,7 @@ mix.sass("dev/scss/survey.scss", "assets/css/formxtra-cf7-survey.css");
 // mix.sass("dev/scss/premium/formxtra-cf7-pro-styles.scss", "Pro/assets/css/formxtra-cf7-pro.min.css");
 
 // Scripts to js - regular
+mix.scripts('dev/js/admin.js', 'assets/js/formxtra-cf7-admin.js' );
 mix.scripts('dev/js/frontend.js', 'assets/js/formxtra-cf7-frontend.js' );
 
 // Third Party Plugins Support

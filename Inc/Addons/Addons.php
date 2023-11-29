@@ -30,5 +30,7 @@ class Addons
 		Redirect::get_instance();
 		// new Signature();
 		Signature::get_instance();
+		// new Signature();
+		// Signature::get_instance();
 	}
 }
