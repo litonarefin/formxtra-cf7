@@ -1,5 +1,5 @@
 // Frontend Script
-console.lov('frontend');
+console.log('frontend');
 jQuery(document).ready(function ($) {
 
     var forms = $(".wpcf7");
@@ -9,13 +9,11 @@ jQuery(document).ready(function ($) {
 
         var formId = $(this).find('input[name="_wpcf7"]').val();
 
-        $(form).find("#signature-pad").each(function (i, wrap) {
-
-
+        $(form).find("#formxtra-cf7-signature-pad").each(function (i, wrap) {
             var convertButton = $('.formxtra-cf7-' + formId).find("#convertButton");
             var signature_canvas = $('.formxtra-cf7-' + formId).find("#signature-canvas");
             var confirm_message = $('.formxtra-cf7-' + formId).find("#confirm_message");
-            var fileInput = $('.formxtra-cf7-' + formId).find('#img_id_special');
+            var fileInput = $('.formxtra-cf7-' + formId).find('#formxtra_cf7_img');
             fileInput.css('display', 'none');
             var clearButton = $('.formxtra-cf7-' + formId).find("#clear-button");
             var control_div = $('.formxtra-cf7-' + formId).find(".control_div");
@@ -132,7 +130,7 @@ jQuery(document).ready(function ($) {
 
             /** Preventing file system opening */
 
-            $('.formxtra-cf7-' + formId).find('#img_id_special').click(function (e) {
+            $('.formxtra-cf7-' + formId).find('#formxtra_cf7_img').click(function (e) {
                 e.preventDefault();
             });
 

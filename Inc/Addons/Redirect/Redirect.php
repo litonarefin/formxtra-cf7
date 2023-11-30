@@ -113,7 +113,7 @@ class Redirect
 		// Check: If Enabled
 
 		// $this->fields = $this->uacf7_get_options( $contact_form->id() );
-		pretty_log('$submission before');
+		// pretty_log('$submission before');
 
 		// if ( ! empty( $this->fields ) && ! WPCF7_Submission::is_restful() ) {
 		if (!\WPCF7_Submission::is_restful()) {

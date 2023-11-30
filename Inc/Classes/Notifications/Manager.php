@@ -37,6 +37,6 @@ class Manager extends Data
 		// Register Upgrade_Notice Notice for managing all notices .
 		$this->register(new Upgrade_Notice());
 
-		// $this->register(new Post_Publishing());
+		$this->register(new Post_Publishing());
 	}
 }

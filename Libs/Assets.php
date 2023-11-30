@@ -49,7 +49,7 @@ if (!class_exists('Assets')) {
 		{
 
 			// CSS Files .
-			wp_enqueue_style('formxtra-cf7-frontend', FORMXTRACF7_ASSETS . 'css/formxtra-cf7-frontend.css', FORMXTRACF7_VER, 'all');
+			// wp_enqueue_style('formxtra-cf7-frontend', FORMXTRACF7_ASSETS . 'css/formxtra-cf7-frontend.css', FORMXTRACF7_VER, 'all');
 
 			// JS Files .
 			wp_enqueue_script('formxtra-cf7-frontend', FORMXTRACF7_ASSETS . 'js/formxtra-cf7-frontend.js', array('jquery'), FORMXTRACF7_VER, true);

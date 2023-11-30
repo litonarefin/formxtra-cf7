@@ -28,7 +28,6 @@ class Addons
 	public function __construct()
 	{
 		Redirect::get_instance();
-		// new Signature();
 		Signature::get_instance();
 		// new Signature();
 		// Signature::get_instance();

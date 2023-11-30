@@ -30,6 +30,11 @@ class Signature
         // Generate Tags on Editor
         add_action('admin_init', [$this, 'formxtra_cf7_generate_tag']);
         add_action('wpcf7_init', [$this, 'formxtra_cf7_signature_shortcode']);
+
+        add_filter('wpcf7_validate_formxtra_cf7_signature', [$this, 'formxtra_cf7_signature_validate'], 10, 2);
+        add_filter('wpcf7_validate_formxtra_cf7_signature*', [$this, 'formxtra_cf7_signature_validate'], 10, 2);
+
+        // add_filter('wpcf7_load_js', '__return_false');
     }
 
     /**
@@ -121,7 +126,6 @@ class Signature
 
     public function formxtra_cf7_signature_tag_handler_callback($tag)
     {
-
         if (empty($tag->name)) {
             return '';
         }
@@ -129,14 +133,13 @@ class Signature
         /** Enable / Disable Submission ID */
         $wpcf7                    = \WPCF7_ContactForm::get_current();
         $formid                   = $wpcf7->id();
-        // $uacf7_signature_settings = get_post_meta($formid, 'uacf7_signature_settings', true);
-        // $uacf7_signature_enable   = $uacf7_signature_settings['uacf7_signature_enable'];
-        // $bg_color                 = $uacf7_signature_settings['uacf7_signature_bg_color'];
-        // $pen_color                = $uacf7_signature_settings['uacf7_signature_pen_color'];
+        // $formxtra_cf7_signature_settings = get_post_meta($formid, 'formxtra_cf7_signature_settings', true);
+        // $formxtra_cf7_signature_enable   = $formxtra_cf7_signature_settings['formxtra_cf7_signature_enable'];
+        // $bg_color                 = $formxtra_cf7_signature_settings['formxtra_cf7_signature_bg_color'];
+        // $pen_color                = $formxtra_cf7_signature_settings['formxtra_cf7_signature_pen_color'];
 
-        pretty_log('$formid', $formid);
 
-        // if ($uacf7_signature_enable != 'on' || $uacf7_signature_enable === '') {
+        // if ($formxtra_cf7_signature_enable != 'on' || $formxtra_cf7_signature_enable === '') {
         //     return;
         // }
         $validation_error = wpcf7_get_validation_error($tag->name);
@@ -152,8 +155,8 @@ class Signature
 
         $atts['class']     = $tag->get_class_option($class);
         $atts['id']        = $tag->get_id_option();
-        $atts['pen-color'] = esc_attr($pen_color);
-        $atts['bg-color']  = esc_attr($bg_color);
+        $atts['pen-color'] = '#eee';
+        $atts['bg-color']  = '#dedecd';
         $atts['tabindex']  = $tag->get_option('tabindex', 'signed_int', true);
 
         if ($tag->is_required()) {
@@ -170,9 +173,9 @@ class Signature
 
     ?>
         <span class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
-            <input hidden type="file" id="img_id_special" <?php echo $atts; ?>>
+            <input hidden type="file" id="formxtra_cf7_img" <?php echo $atts; ?>>
             <div>
-                <div id="signature-pad">
+                <div id="formxtra-cf7-signature-pad">
                     <canvas id="signature-canvas"></canvas>
                 </div>
                 <span id="confirm_message"></span>
@@ -187,6 +190,28 @@ class Signature
         $output = ob_get_clean();
 
         return $output;
+    }
+
+
+    /**
+     * Signature Validate
+     *
+     * @param [type] $result
+     * @param [type] $tag
+     *
+     * @return void
+     */
+    public function formxtra_cf7_signature_validate($result, $tag)
+    {
+        $name = $tag->name;
+
+        $empty = !isset($_FILES[$name]['name']) || empty($_FILES[$name]['name']) && '0' !== $_FILES[$name]['name'];
+
+        if ($tag->is_required() and $empty) {
+            $result->invalidate($tag, wpcf7_get_message('invalid_required'));
+        }
+
+        return $result;
     }
 
     /**
