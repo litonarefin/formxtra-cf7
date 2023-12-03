@@ -155,8 +155,8 @@ class Signature
 
         $atts['class']     = $tag->get_class_option($class);
         $atts['id']        = $tag->get_id_option();
-        $atts['pen-color'] = '#eee';
-        $atts['bg-color']  = '#dedecd';
+        $atts['pen-color'] = '#000';
+        $atts['bg-color']  = '#ececed';
         $atts['tabindex']  = $tag->get_option('tabindex', 'signed_int', true);
 
         if ($tag->is_required()) {
@@ -173,15 +173,19 @@ class Signature
 
     ?>
         <span class="wpcf7-form-control-wrap <?php echo sanitize_html_class($tag->name); ?>" data-name="<?php echo sanitize_html_class($tag->name); ?>">
-            <input hidden type="file" id="formxtra_cf7_img" <?php echo $atts; ?>>
+            <input hidden type="file" id="formxtra_cf7-signature-img" <?php echo $atts; ?>>
             <div>
                 <div id="formxtra-cf7-signature-pad">
                     <canvas id="signature-canvas"></canvas>
                 </div>
                 <span id="confirm_message"></span>
                 <div class="control_div">
-                    <button id="clear-button">Clear</button>
-                    <button id="convertButton">Confirm Signature</button>
+                    <button id="clear-button">
+                        <?php echo esc_html__('Clear', 'formxtra-cf7'); ?>
+                    </button>
+                    <button id="convertButton">
+                        <?php echo esc_html__('Confirm Signature', 'formxtra-cf7'); ?>
+                    </button>
                 </div>
             </div>
         </span>

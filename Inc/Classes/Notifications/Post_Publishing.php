@@ -54,12 +54,12 @@ if (!class_exists('Post_Publishing')) {
                 display: inline-block;
             }
 
-            #uacf7_black_friday_docs .inside {
+            #formxtra_cf7_black_friday_docs .inside {
                 padding: 0;
                 margin-top: 0;
             }
 
-            #uacf7_black_friday_docs .postbox-header {
+            #formxtra_cf7_black_friday_docs .postbox-header {
                 display: none;
                 visibility: hidden;
             }

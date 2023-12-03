@@ -13,7 +13,7 @@ jQuery(document).ready(function ($) {
             var convertButton = $('.formxtra-cf7-' + formId).find("#convertButton");
             var signature_canvas = $('.formxtra-cf7-' + formId).find("#signature-canvas");
             var confirm_message = $('.formxtra-cf7-' + formId).find("#confirm_message");
-            var fileInput = $('.formxtra-cf7-' + formId).find('#formxtra_cf7_img');
+            var fileInput = $('.formxtra-cf7-' + formId).find('#formxtra_cf7-signature-img');
             fileInput.css('display', 'none');
             var clearButton = $('.formxtra-cf7-' + formId).find("#clear-button");
             var control_div = $('.formxtra-cf7-' + formId).find(".control_div");
@@ -22,6 +22,11 @@ jQuery(document).ready(function ($) {
             var pad_bg_color = fileInput.attr('bg-color');
             var pen_color = fileInput.attr('pen-color');
 
+            console.log('formId', formId);
+            console.log('convertButton', convertButton);
+            console.log('pen_color', pen_color);
+            console.log('fileInput', fileInput);
+
 
             var canvas = $(wrap).find('canvas').get(0);
             var signaturePad = new SignaturePad(canvas, {
@@ -29,10 +34,6 @@ jQuery(document).ready(function ($) {
                 backgroundColor: pad_bg_color,
                 penColor: pen_color,
             });
-
-
-
-
 
             signs[k + '-' + i] = signaturePad;
             signs[k + '-' + i].addEventListener('endStroke', function (e) {
@@ -130,7 +131,7 @@ jQuery(document).ready(function ($) {
 
             /** Preventing file system opening */
 
-            $('.formxtra-cf7-' + formId).find('#formxtra_cf7_img').click(function (e) {
+            $('.formxtra-cf7-' + formId).find('#formxtra_cf7-signature-img').click(function (e) {
                 e.preventDefault();
             });
 
