@@ -30,7 +30,8 @@ class Addons
 	{
 		Redirect::get_instance();
 		Signature::get_instance();
-		Database::get_instance();
+		// Database::get_instance();
+		new Database();
 		// new Signature();
 	}
 }

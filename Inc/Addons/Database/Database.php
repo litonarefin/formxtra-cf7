@@ -2,6 +2,8 @@
 
 namespace FORMXTRACF7\Inc\Addons\Database;
 
+use FORMXTRACF7\Inc\Addons\Database\Formxtra_List_Table;
+
 // No, Direct access Sir !!!
 if (!defined('ABSPATH')) {
     exit;
@@ -154,11 +156,11 @@ class Database
     {
         add_submenu_page(
             'wpcf7', //parent slug
-            __('Formxtra CF7', 'formxtra-cf7'), // page_title
-            __('Formxtra CF7', 'formxtra-cf7'), // menu_title
+            __('Formxtra CF7 DB', 'formxtra-cf7'), // page_title
+            __('Formxtra CF7 DB', 'formxtra-cf7'), // menu_title
             'manage_options', // capability
-            'formxtra-cf7-settings', // menu_slug
-            array($this, 'formxtra_cf7_databse_settings_page') // callback function
+            'formxtra-cf7-db', // menu_slug
+            array($this, 'formxtra_cf7_databse_settings_page'), // callback function
         );
     }
 
@@ -176,27 +178,25 @@ class Database
 
 
         if (!empty($form_id)) {
-            $uacf7_ListTable = new uacf7_form_List_Table();
-            $uacf7_ListTable->prepare_items();
+            $formxtra_cf8_db = new Formxtra_List_Table();
+            $formxtra_cf8_db->prepare_items();
 ?>
             <div class="wrap">
                 <div id="icon-users" class="icon32"></div>
-                <h2><?php echo esc_html__('Ultimate Database', 'ultimate-addons-cf7'); ?></h2>
+                <h2><?php echo esc_html__('Formxtra CF7 Database', 'formxtra-cf7'); ?></h2>
                 <?php settings_errors(); ?>
                 <form method="post" action="">
                     <input type="hidden" name="page" value="<?php echo esc_attr($_REQUEST['page']); ?>" />
-                    <?php $uacf7_ListTable->search_box('Search', 'search'); ?>
-                    <?php $uacf7_ListTable->display(); ?>
+                    <?php $formxtra_cf8_db->search_box('Search', 'search'); ?>
+                    <?php $formxtra_cf8_db->display(); ?>
                 </form>
             </div>
-            <section class="uacf7_popup_preview">
-                <div class="uacf7_popup_preview_content">
-
-                    <div id="uacf7_popup_wrap">
+            <section class="formxtra_cf7_popup_preview">
+                <div class="formxtra_cf7_popup_content">
+                    <div id="formxtra_cf7_popup_wrap">
                         <div class="db_popup_view">
-                            <div class="close" title="Exit Full Screen">╳</div>
+                            <div class="close" title="Exit Full Screen">x</div>
                             <div id="db_view_wrap">
-
                             </div>
                         </div>
                     </div>
@@ -212,37 +212,37 @@ class Database
             ));
         ?>
 
-            <div class="wrap uacf7-admin-cont">
-                <h1><?php echo esc_html__('Ultimate Database Addon', 'ultimate-addons-cf7'); ?></h1>
+            <div class="wrap formxtra-cf7-admin-cont">
+                <h1><?php echo esc_html__('Formxtra CF7 Database Addon', 'formxtra-cf7'); ?></h1>
                 <br>
                 <?php settings_errors(); ?>
 
                 <!--Tab buttons start-->
-                <div class="uacf7-tab">
-                    <a class="tablinks active" onclick="uacf7_settings_tab(event, 'uacf7_addons')"><?php echo esc_html__('Ultimate Database', 'ultimate-addons-cf7'); ?> </a>
+                <div class="formxtra-cf7-tab">
+                    <a class="tablinks active" onclick="uacf7_settings_tab(event, 'uacf7_addons')"><?php echo esc_html__('Formxtra CF7 Database', 'formxtra-cf7'); ?> </a>
                 </div>
                 <!--Tab buttons end-->
 
                 <!--Tab Addons start-->
-                <div id="uacf7_addons" class="uacf7-tabcontent" style="display:block">
+                <div id="uacf7_addons" class="formxtra-cf7-tabcontent" style="display:block">
                     <table>
                         <tr>
                             <td>
-                                <h3><?php echo esc_html__('Select Form :', 'ultimate-addons-cf7'); ?> </h4>
+                                <h3><?php echo esc_html__('Select Form :', 'formxtra-cf7'); ?> </h4>
                             </td>
                             <td>
                                 <select name="form-id" id="form-id">
-                                    <option value="0"><?php echo esc_html__('Select Form', 'ultimate-addons-cf7'); ?> </option>
+                                    <option value="0"><?php echo esc_html__('Select Form', 'formxtra-cf7'); ?> </option>
                                     <?php
                                     foreach ($list_forms as $form) {
-                                        $count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM " . $wpdb->prefix . "uacf7_form WHERE form_id = %d", $form->ID));  // count number of data
+                                        $count = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM " . $wpdb->prefix . "formxtra_cf7_db WHERE form_id = %d", $form->ID));  // count number of data
                                         echo '<option value="' . esc_attr($form->ID) . '">' . esc_attr($form->post_title) . ' ( ' . $count . ' )</option>';
                                     }
                                     ?>
                                 </select>
                             </td>
                             <td>
-                                <button type="submit" class="button-primary" id="database_submit"> <?php echo esc_html__('Submit', 'ultimate-addons-cf7'); ?> </button>
+                                <button type="submit" class="button-primary" id="database_submit"> <?php echo esc_html__('Submit', 'formxtra-cf7'); ?> </button>
                             </td>
                         </tr>
                     </table>
