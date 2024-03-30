@@ -54,7 +54,7 @@ class Admin
             <p>
                 <?php printf(
                     __('%s requires %s to be installed and active. You can install and activate it from %s', 'formxtra-cf7'),
-                    '<strong>Formxtra CF7 for Contact Form 7</strong>',
+                    '<strong>Formxtra CF7</strong>',
                     '<strong>Contact form 7</strong>',
                     '<a href="' . admin_url('plugin-install.php?tab=search&s=contact+form+7') . '">here</a>.'
                 ); ?></p>
