@@ -1,4 +1,4 @@
-===  ===
+=== Formxtra CF7  ===
 Contributors: litonice13, pixarlabs, jwthemeltd
 Donate link: https://www.buymeacoffee.com/jeweltheme
 Tags:
@@ -9,6 +9,7 @@ Requires PHP: 5.6
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
+Contact Form 7 Addons WordPress Plugin
 
 
 == Description ==
