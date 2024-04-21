@@ -117,8 +117,6 @@ class Database
         ));
         $formxtra_cf7_db_insert_id = $wpdb->insert_id;
 
-        //  print_r($formxtra_cf7_enable_track_order);
-
         // Order tracking Action
         do_action('formxtra_cf7_checkout_order_traking', $formxtra_cf7_db_insert_id, $form->id());
 
@@ -213,18 +211,20 @@ class Database
         ?>
 
             <div class="wrap formxtra-cf7-admin-cont">
-                <h1><?php echo esc_html__('Formxtra CF7 Database Addon', 'formxtra-cf7'); ?></h1>
+                <h1>
+                    <?php echo esc_html__('Formxtra CF7 Database Addon', 'formxtra-cf7'); ?>
+                </h1>
                 <br>
                 <?php settings_errors(); ?>
 
                 <!--Tab buttons start-->
                 <div class="formxtra-cf7-tab">
-                    <a class="tablinks active" onclick="uacf7_settings_tab(event, 'uacf7_addons')"><?php echo esc_html__('Formxtra CF7 Database', 'formxtra-cf7'); ?> </a>
+                    <a class="tablinks active" onclick="formxtra_cf7_settings_tab(event, 'formxtra_cf7_addons')"><?php echo esc_html__('Formxtra CF7 Database', 'formxtra-cf7'); ?> </a>
                 </div>
                 <!--Tab buttons end-->
 
                 <!--Tab Addons start-->
-                <div id="uacf7_addons" class="formxtra-cf7-tabcontent" style="display:block">
+                <div id="formxtra_cf7_addons" class="formxtra-cf7-tabcontent" style="display:block">
                     <table>
                         <tr>
                             <td>
